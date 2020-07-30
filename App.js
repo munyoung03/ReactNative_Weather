@@ -1,18 +1,19 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
-import Weather from './Weather'
-import TopBar from './TopBar'
-import Circle from './Circle'
-import FineDust from './FineDust'
-import BottomBarMenu from './BottomBarMenu'
-import TimeWeather from './TimeWeather'
+import Weather from './Weather';
+import TopBar from './TopBar';
+import Circle from './Circle';
+import FineDust from './FineDust';
+import BottomBarMenu from './BottomBarMenu';
+import TimeWeather from './TimeWeather';
 
-export default function App() {
+
+const App = () => {
   return (
     <View style={styles.container}>
       <TopBar/>
-      <Weather/>
+      <Weather />
       <Circle/>
       <FineDust/>
       <BottomBarMenu/>
@@ -30,3 +31,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default App

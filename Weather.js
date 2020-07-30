@@ -1,11 +1,45 @@
-import React from 'react';
+import React, {useState, useEffect}from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
+import axios from "axios"
+import * as Location from 'expo-location';
 
-export default function Weather() {
+const Weather = () => {
+
+  const [longitude, setLongitude]= useState(Number);
+  const [latitude, setLatitude]= useState(Number);
+  const [api,setApi] = useState({})
+
+
+  const getLocation = async() => {
+    console.log("2")
+    try {
+      await Location.requestPermissionsAsync();
+      const location = await Location.getCurrentPositionAsync();
+
+      setLongitude(location.coords.longitude)
+      setLatitude(location.coords.latitude)
+
+      //key beb156f9ab48aafb74a83023fab39ef3  
+
+      //
+
+    const {data} = await axios.get(`http://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=beb156f9ab48aafb74a83023fab39ef3`) 
+      
+    setApi(data)
+    console.log(api.city.name)
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getLocation()
+  },[])
     return (
       <View style={styles.container}>
           <Text style={styles.text1}>(현재 위치)</Text>
-          <Text style={styles.text2}>강남구 대치동</Text>
+    <Text style={styles.text2}>{api.city.name}</Text>
           <Text style={styles.text3}>맑음</Text>
             <Image
                 style={styles.sun}
@@ -63,3 +97,5 @@ export default function Weather() {
         color: 'white',
     },
   });
+
+  export default Weather

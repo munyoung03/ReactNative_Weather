@@ -1,20 +1,25 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
+
+const screenWidth = Math.round(Dimensions.get('window').width);
+const screenHeight = Math.round(Dimensions.get('window').height);
 
 export default function FineDust() {
     return (
-    <View style={styles.container}>
-      <View style={styles.container2}>
-          <Image
-                style={styles.devil}
+      <View style={styles.container}>
+        <View style={styles.box}>
+            <Image style={styles.image}
                 source={require('./assets/devil.png')}/>
-            <Text style={styles.text}>미세미세{"\n"}매우나쁨</Text>
+            <View>
+                <Text style={styles.text}>미세미세</Text>
+                <Text style={styles.text}>매우 나쁨</Text>
+            </View>
+        </View>
       </View>
-    </View>
     );
-  }
-  
-  const styles = StyleSheet.create({
+}
+
+const styles = StyleSheet.create({
     container: {
       width:"100%",
       height: "7%",
@@ -23,23 +28,23 @@ export default function FineDust() {
       justifyContent: 'flex-end',
       flexDirection: "row"
     },
-    container2: {
-        width:"27%",
-        height: "70%",
-        marginRight: 20,
-        borderRadius: 10,
-        alignItems: 'flex-end',
-        justifyContent: 'flex-end',
-        backgroundColor: '#3797F6',
-        flexDirection: "row"
-      },
-    devil: {
-        marginBottom: 5,
-        width: 30,
-        height: 30,
+    box: {
+        marginTop: screenHeight * 0.02,
+        width: screenWidth * 0.27,
+        height: screenHeight * 0.055,
+        flexDirection: 'row',
+        backgroundColor: '#3694F4',
+        borderRadius: screenWidth * 0.03,
+        alignItems: 'center',
+        marginRight: 10,
+    },
+    image: {
+        width: screenWidth * 0.07,
+        height: screenWidth * 0.07,
+        margin: screenWidth * 0.023,
     },
     text: {
-        marginRight: 20,
+        color: 'white',
+        fontSize: screenWidth * 0.033,
     }
-
-  });
+});
