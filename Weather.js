@@ -1,52 +1,19 @@
-import React, {useState, useEffect}from 'react';
+import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
-import axios from "axios"
-import * as Location from 'expo-location';
 
-const Weather = () => {
+const Weather = ({data}) => {
 
-  const [longitude, setLongitude]= useState(Number);
-  const [latitude, setLatitude]= useState(Number);
-  const [api,setApi] = useState({})
-
-
-  const getLocation = async() => {
-    console.log("2")
-    try {
-      await Location.requestPermissionsAsync();
-      const location = await Location.getCurrentPositionAsync();
-
-      setLongitude(location.coords.longitude)
-      setLatitude(location.coords.latitude)
-
-      //key beb156f9ab48aafb74a83023fab39ef3  
-
-      //
-
-    const {data} = await axios.get(`http://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=beb156f9ab48aafb74a83023fab39ef3`) 
-      
-    setApi(data)
-    console.log(api.city.name)
-
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  useEffect(() => {
-    getLocation()
-  },[])
     return (
       <View style={styles.container}>
           <Text style={styles.text1}>(현재 위치)</Text>
-    <Text style={styles.text2}>{api.city.name}</Text>
-          <Text style={styles.text3}>맑음</Text>
+    <Text style={styles.text2}>{data.name}</Text>
+          <Text style={styles.text3}>{data.weather[0].main}</Text>
             <Image
                 style={styles.sun}
                 source={require('./assets/sun.png')}/>
-        <Text style={styles.text4}>27°</Text>
-        <Text style={styles.text5}>어제보다 6°나 높아요</Text>
-        <Text style={styles.text6}>최고 28°/ 최저 16°</Text>
+        <Text style={styles.text4}>{Math.ceil(data.main.temp-273.15)}°</Text>
+        <Text style={styles.text5}>어제보다 ??°나 높아요</Text>
+        <Text style={styles.text6}>최고 {Math.ceil(data.main.temp_max-273.15)}°/ 최저 {Math.ceil(data.main.temp_min-273.15)}°</Text>
 
       </View>
     );
@@ -55,7 +22,7 @@ const Weather = () => {
   const styles = StyleSheet.create({
     container: {
       width: "100%",
-      height: "42%",
+      height: "50%",
       backgroundColor: '#007EEF',
       alignItems: 'center',
       justifyContent: 'center',

@@ -27,7 +27,7 @@ export default function TimeWeather() {
 const styles = StyleSheet.create({
     container: {
         width: "100%",
-        height: "34%",
+        height: "26%",
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: "row"
